@@ -22,5 +22,5 @@
         "lib": ["ES2022"]
     },
     "include": ["src"],
-    "exclude": ["node_modules", "dist", "src/publisher"]
+    "exclude": ["node_modules", "dist", "publisher"]
 }
