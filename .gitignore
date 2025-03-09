@@ -1,0 +1,15 @@
+env/
+venv/
+redisdata/
+.DS_Store
+.idea/
+.vscode/
+__pycache__/
+.env
+*.tmp
+*.bak
+*.pyc
+*.swp
+*.log
+*.pyo
+node_modules/
