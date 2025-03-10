@@ -1,12 +1,9 @@
-import { client, connectRedis } from './client.js'
-import { CHANNEL } from './contants.js'
+import { connectRedis, clientId } from './client.js'
+import { createSubscriber } from './subscriber.js'
 
-const startConsumer = async () => {
+async function startConsumer() {
     await connectRedis()
-
-    client.subscribe(CHANNEL, (message, channel) => {
-        console.log(`${CHANNEL} subscriber collected message: ${message} from channel: ${channel}`)
-    })
+    createSubscriber(clientId)
 }
 
 startConsumer().catch((e: unknown) => {

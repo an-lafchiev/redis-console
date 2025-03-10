@@ -18,7 +18,6 @@ def publisher():
         print("Error: Failed to connect to Redis server")
         exit(1)
 
-    connection.set("test:test", "this is a test")
     start_time = datetime.now()
     total_messages = 0
     try:
