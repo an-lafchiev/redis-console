@@ -1,4 +1,4 @@
-export const CHANNEL = 'messages:published'
+export const CHANNEL_KEY = 'messages:published'
 export const CONSUMER_LIST = 'consumer:ids'
 export const SORTED_SET_KEY = 'messages:sorted'
 export const SEEN_MESSAGES_KEY = 'messages:seen'

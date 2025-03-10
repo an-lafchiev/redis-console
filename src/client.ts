@@ -1,9 +1,10 @@
 import { createClient } from 'redis'
-import { CONSUMER_LIST, PROCESSED_MESSAGES_KEY } from './contants.js'
 import { randomUUID } from 'node:crypto'
+import { removeConsumerId } from './subscriber.js'
+import { CONFIG } from './config.js'
 
 export const client = createClient({
-    socket: { port: 6379, host: '127.0.0.1' },
+    socket: { port: CONFIG.REDIS_PORT as number, host: CONFIG.REDIS_HOST },
 })
 export const clientId = randomUUID()
 
@@ -23,10 +24,16 @@ export async function connectRedis() {
     }
 }
 
-process.on('SIGINT', async () => {
-    console.log('Closing Redis connections...')
-    console.log(await client.xLen(PROCESSED_MESSAGES_KEY))
-    await client.lRem(CONSUMER_LIST, 0, clientId)
-    await client.quit()
-    process.exit(0)
-})
+const shutdown = async () => {
+    try {
+        await removeConsumerId(clientId)
+        await client.quit()
+    } catch (e: unknown) {
+        console.error(`Error during shutdown: ${e}`)
+    } finally {
+        process.exit(0)
+    }
+}
+
+process.on('SIGINT', shutdown)
+process.on('SIGTERM', shutdown)
