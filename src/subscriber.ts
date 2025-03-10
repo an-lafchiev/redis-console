@@ -2,7 +2,7 @@ import { client } from './client.js'
 import { CHANNEL_KEY, CONSUMER_LIST } from './contants.js'
 import { handleMessage } from './utils/handleMessage.js'
 
-async function registerConsumerId(consumerId: string) {
+export async function registerConsumerId(consumerId: string) {
     try {
         await client.lPush(CONSUMER_LIST, consumerId)
     } catch (e: unknown) {
@@ -23,8 +23,7 @@ export async function createSubscriber(consumerId: string) {
     await subscriber.connect()
 
     await registerConsumerId(consumerId)
-
     await subscriber.subscribe(CHANNEL_KEY, async (message) => {
-        handleMessage(message)
+        await handleMessage(message)
     })
 }

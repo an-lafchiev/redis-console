@@ -1,11 +1,13 @@
 import { connectRedis, clientId } from './client.js'
 import { startLogging } from './metrics.js'
 import { createSubscriber } from './subscriber.js'
+import { createTransformer } from './transformer.js'
 
 async function startConsumer() {
     await connectRedis()
     startLogging()
-    createSubscriber(clientId)
+    await createSubscriber(clientId)
+    await createTransformer()
 }
 
 startConsumer()

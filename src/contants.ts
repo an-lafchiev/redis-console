@@ -1,5 +1,5 @@
 export const CHANNEL_KEY = 'messages:published'
-export const CONSUMER_LIST = 'consumer:ids'
 export const SORTED_SET_KEY = 'messages:sorted'
+export const CONSUMER_LIST = 'consumer:ids'
 export const SEEN_MESSAGES_KEY = 'messages:seen'
 export const PROCESSED_MESSAGES_KEY = 'messages:processed'

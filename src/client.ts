@@ -24,7 +24,7 @@ export async function connectRedis() {
     }
 }
 
-const shutdown = async () => {
+export const shutdown = async () => {
     try {
         await removeConsumerId(clientId)
         await client.quit()

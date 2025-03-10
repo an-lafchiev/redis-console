@@ -1,21 +1,10 @@
-import { z, ZodError } from 'zod'
-
-interface SafeParseJsonSuccess<T> {
-    success: true
-    data: T
-}
-
-interface SafeParseJsonFailure {
-    success: false
-    error: ZodError | Error
-}
-
-export type SafeParseJsonResult<T> = SafeParseJsonSuccess<T> | SafeParseJsonFailure
+import { z } from 'zod'
+import type { SafeJsonParseResult } from '../types/index.js'
 
 export const safeParseJson = <T>(
     schema: z.ZodType<T>,
     jsonString: string
-): SafeParseJsonResult<T> => {
+): SafeJsonParseResult<T> => {
     try {
         const parsed = JSON.parse(jsonString)
         const result = schema.safeParse(parsed)
